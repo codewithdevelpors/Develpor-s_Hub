@@ -1,9 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <div className="App">
+      <Navbar toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

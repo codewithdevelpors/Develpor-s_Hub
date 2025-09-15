@@ -1,0 +1,112 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--navbar-bg, #fff);
+  color: var(--navbar-text, #333);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar-brand h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--navbar-text, #333);
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: var(--search-bg, #f0f0f0);
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.search-form.open {
+  width: 250px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 1rem;
+  background: transparent;
+  color: var(--navbar-text, #333);
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.search-form.open .search-input {
+  opacity: 1;
+}
+
+.search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--navbar-text, #333);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-btn:hover {
+  background-color: var(--hover-bg, rgba(0, 0, 0, 0.1));
+}
+
+.dark-mode-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--navbar-text, #333);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode-btn:hover {
+  background-color: var(--hover-bg, rgba(0, 0, 0, 0.1));
+}
+
+/* Dark mode variables */
+body.dark-mode {
+  --navbar-bg: #333;
+  --navbar-text: #fff;
+  --search-bg: #555;
+  --hover-bg: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .App {
+  background-color: #222;
+  color: #fff;
+}
+
+body.dark-mode .App-header {
+  background-color: #222;
+}
