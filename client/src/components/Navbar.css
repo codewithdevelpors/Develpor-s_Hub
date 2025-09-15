@@ -87,11 +87,163 @@
   color: var(--navbar-text, #333);
   cursor: pointer;
   border-radius: 50%;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .dark-mode-btn:hover {
   background-color: var(--hover-bg, rgba(0, 0, 0, 0.1));
+  transform: scale(1.1);
+}
+
+.icon-container {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.sun-icon, .moon-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.dark-mode-btn.light .sun-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.dark-mode-btn.light .moon-icon {
+  opacity: 0;
+  transform: rotate(180deg);
+}
+
+.dark-mode-btn.dark .sun-icon {
+  opacity: 0;
+  transform: rotate(180deg);
+}
+
+.dark-mode-btn.dark .moon-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--navbar-text, #333);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.menu-btn:hover {
+  background-color: var(--hover-bg, rgba(0, 0, 0, 0.1));
+}
+
+.hamburger {
+  width: 20px;
+  height: 14px;
+  position: relative;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+.hamburger span:nth-child(1) {
+  top: 0;
+}
+
+.hamburger span:nth-child(2) {
+  top: 6px;
+}
+
+.hamburger span:nth-child(3) {
+  top: 12px;
+}
+
+.menu-btn.open .hamburger span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 6px;
+}
+
+.menu-btn.open .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-btn.open .hamburger span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 6px;
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 1rem;
+  background-color: var(--navbar-bg, #fff);
+  border: 1px solid var(--hover-bg, rgba(0, 0, 0, 0.1));
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  min-width: 200px;
+  z-index: 1001;
+  animation: slideDown 0.3s ease;
+}
+
+.theme-dropdown h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: var(--navbar-text, #333);
+}
+
+.theme-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.theme-option {
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--navbar-text, #333);
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.theme-option:hover {
+  background-color: var(--hover-bg, rgba(0, 0, 0, 0.1));
+}
+
+.theme-option.active {
+  background-color: var(--hover-bg, rgba(0, 0, 0, 0.2));
+  font-weight: bold;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Dark mode variables */
@@ -109,4 +261,80 @@ body.dark-mode .App {
 
 body.dark-mode .App-header {
   background-color: #222;
+}
+
+/* Theme variables */
+[data-theme="default"] {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+}
+
+[data-theme="blue"] {
+  --primary-color: #007bff;
+  --secondary-color: #0056b3;
+}
+
+[data-theme="green"] {
+  --primary-color: #28a745;
+  --secondary-color: #155724;
+}
+
+[data-theme="purple"] {
+  --primary-color: #6f42c1;
+  --secondary-color: #4c2889;
+}
+
+[data-theme="red"] {
+  --primary-color: #dc3545;
+  --secondary-color: #a02622;
+}
+
+[data-theme="orange"] {
+  --primary-color: #fd7e14;
+  --secondary-color: #c96500;
+}
+
+[data-theme="pink"] {
+  --primary-color: #e83e8c;
+  --secondary-color: #b02a5e;
+}
+
+[data-theme="teal"] {
+  --primary-color: #20c997;
+  --secondary-color: #0f7856;
+}
+
+[data-theme="indigo"] {
+  --primary-color: #6610f2;
+  --secondary-color: #4c0aa7;
+}
+
+[data-theme="cyan"] {
+  --primary-color: #17a2b8;
+  --secondary-color: #0c6b7a;
+}
+
+[data-theme="lime"] {
+  --primary-color: #7cc84d;
+  --secondary-color: #4f7c2a;
+}
+
+[data-theme="amber"] {
+  --primary-color: #ffc107;
+  --secondary-color: #b8860b;
+}
+
+[data-theme="rose"] {
+  --primary-color: #e91e63;
+  --secondary-color: #a31545;
+}
+
+[data-theme="emerald"] {
+  --primary-color: #10b981;
+  --secondary-color: #047857;
+}
+
+[data-theme="violet"] {
+  --primary-color: #8b5cf6;
+  --secondary-color: #6d28d9;
 }

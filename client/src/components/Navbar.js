@@ -4,6 +4,33 @@ import './Navbar.css';
 const Navbar = ({ toggleDarkMode, isDarkMode }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState('default');
+
+  const themes = [
+    { name: 'Default', value: 'default' },
+    { name: 'Blue', value: 'blue' },
+    { name: 'Green', value: 'green' },
+    { name: 'Purple', value: 'purple' },
+    { name: 'Red', value: 'red' },
+    { name: 'Orange', value: 'orange' },
+    { name: 'Pink', value: 'pink' },
+    { name: 'Teal', value: 'teal' },
+    { name: 'Indigo', value: 'indigo' },
+    { name: 'Cyan', value: 'cyan' },
+    { name: 'Lime', value: 'lime' },
+    { name: 'Amber', value: 'amber' },
+    { name: 'Rose', value: 'rose' },
+    { name: 'Emerald', value: 'emerald' },
+    { name: 'Violet', value: 'violet' }
+  ];
+
+  const handleThemeChange = (theme) => {
+    setCurrentTheme(theme);
+    setIsMenuOpen(false);
+    // Apply theme logic here
+    document.documentElement.setAttribute('data-theme', theme);
+  };
 
   const handleSearchToggle = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -41,18 +68,40 @@ const Navbar = ({ toggleDarkMode, isDarkMode }) => {
             </svg>
           </button>
         </form>
-        <button className="dark-mode-btn" onClick={toggleDarkMode}>
-          {isDarkMode ? (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <button className={`dark-mode-btn ${isDarkMode ? 'dark' : 'light'}`} onClick={toggleDarkMode}>
+          <div className="icon-container">
+            <svg className="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 3V5M12 19V21M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M3 12H5M19 12H21M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          ) : (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg className="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          )}
+          </div>
+        </button>
+        <button className={`menu-btn ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <div className="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </button>
       </div>
+      {isMenuOpen && (
+        <div className="theme-dropdown">
+          <h4>Select Theme</h4>
+          <div className="theme-list">
+            {themes.map((theme) => (
+              <button
+                key={theme.value}
+                className={`theme-option ${currentTheme === theme.value ? 'active' : ''}`}
+                onClick={() => handleThemeChange(theme.value)}
+              >
+                {theme.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

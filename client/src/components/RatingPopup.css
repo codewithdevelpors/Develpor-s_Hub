@@ -1,0 +1,253 @@
+.rating-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.rating-modal {
+  background-color: var(--modal-bg, #fff);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.rating-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+.rating-header h2 {
+  margin: 0;
+  color: var(--text-color, #333);
+  font-size: 1.5rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--secondary-text, #666);
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: var(--hover-bg, rgba(0, 0, 0, 0.1));
+  color: var(--text-color, #333);
+}
+
+.rating-content {
+  padding: 1.5rem;
+}
+
+.item-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: var(--card-bg, #f8f9fa);
+  border-radius: 8px;
+}
+
+.item-preview img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-info h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+  color: var(--text-color, #333);
+}
+
+.item-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--secondary-text, #666);
+}
+
+.rating-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.rating-prompt {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.1rem;
+  color: var(--text-color, #333);
+}
+
+.stars-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.rating-star {
+  background: none;
+  border: none;
+  font-size: 3rem;
+  cursor: pointer;
+  color: #ddd;
+  transition: all 0.2s ease;
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+
+.rating-star:hover,
+.rating-star.filled {
+  color: #ffc107;
+  transform: scale(1.1);
+}
+
+.rating-star:active {
+  transform: scale(0.95);
+}
+
+.rating-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--secondary-text, #666);
+  margin: 0 2rem;
+}
+
+.rating-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.submit-btn,
+.skip-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn {
+  background-color: var(--primary-color, #007bff);
+  color: #fff;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: var(--primary-hover, #0056b3);
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.skip-btn {
+  background-color: var(--secondary-color, #6c757d);
+  color: #fff;
+}
+
+.skip-btn:hover {
+  background-color: var(--secondary-hover, #545b62);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .rating-modal {
+    width: 95%;
+    margin: 1rem;
+  }
+
+  .rating-header {
+    padding: 1rem;
+  }
+
+  .rating-content {
+    padding: 1rem;
+  }
+
+  .stars-container {
+    gap: 0.25rem;
+  }
+
+  .rating-star {
+    font-size: 2.5rem;
+  }
+
+  .rating-actions {
+    flex-direction: column;
+  }
+
+  .submit-btn,
+  .skip-btn {
+    width: 100%;
+  }
+}
+
+/* Dark mode support */
+body.dark-mode .rating-modal {
+  --modal-bg: #2a2a2a;
+  --border-color: #444;
+  --card-bg: #1a1a1a;
+}
+
+body.dark-mode .rating-header h2 {
+  color: #fff;
+}
+
+body.dark-mode .item-info h3 {
+  color: #fff;
+}
+
+body.dark-mode .rating-prompt {
+  color: #fff;
+}
+
+body.dark-mode .rating-star:not(.filled):not(:hover) {
+  color: #666;
+}
