@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Placeholder from '../components/ui/Placeholder';
-import Banner from '../components/ui/Banner';
-import RatingPopup from '../components/ui/RatingPopup';
+import Placeholder from '../components/Placeholder/Placeholder';
+import Banner from '../components/Banner/Banner';
+import RatingPopup from '../components/RatingPopup/RatingPopup';
 import './Home.css';
 import { ITEMS_PER_PAGE } from '../constants/themes';
 import { generateMockItems } from '../utils/helpers';

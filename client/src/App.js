@@ -1,9 +1,10 @@
 import './styles/App.css';
-import Navbar from './components/layout/Navbar';
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import Download from './pages/Download';
-import Preview from './components/ui/Preview';
+import Preview from './components/Preview/Preview';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 
@@ -67,6 +68,7 @@ function AppContent() {
           )
         } />
       </Routes>
+      <Footer />
       {previewItem && (
         <Preview item={previewItem} onClose={closePreview} />
       )}
