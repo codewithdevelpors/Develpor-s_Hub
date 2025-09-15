@@ -1,24 +1,14 @@
 import React from 'react';
 import './Placeholder.css';
+import { renderStars, isTrending } from '../../utils/helpers';
+import { TRENDING_RATING_THRESHOLD } from '../../constants/themes';
 
 const Placeholder = ({ item, onNextClick }) => {
-  const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <span key={i} className={`star ${i <= rating ? 'filled' : ''}`}>
-          ★
-        </span>
-      );
-    }
-    return stars;
-  };
-
-  const isTrending = item.rating >= 4.5;
+  const isItemTrending = isTrending(item.rating, TRENDING_RATING_THRESHOLD);
 
   return (
     <div className="placeholder-card">
-      {isTrending && (
+      {isItemTrending && (
         <div className="trending-badge">
           <span>🔥 Trending</span>
         </div>

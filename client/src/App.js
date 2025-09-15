@@ -1,9 +1,9 @@
-import './App.css';
-import Navbar from './components/Navbar';
-import Home from './components/Home';
-import Detail from './components/Detail';
-import Download from './components/Download';
-import Preview from './components/Preview';
+import './styles/App.css';
+import Navbar from './components/layout/Navbar';
+import Home from './pages/Home';
+import Detail from './pages/Detail';
+import Download from './pages/Download';
+import Preview from './components/ui/Preview';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 

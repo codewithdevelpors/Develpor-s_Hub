@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Download.css';
+import { renderStars } from '../utils/helpers';
 
 const Download = ({ item }) => {
   const navigate = useNavigate();
@@ -40,17 +41,6 @@ const Download = ({ item }) => {
     }
   };
 
-  const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <span key={i} className={`star ${i <= rating ? 'filled' : ''}`}>
-          ★
-        </span>
-      );
-    }
-    return stars;
-  };
 
   return (
     <div className="download-container">

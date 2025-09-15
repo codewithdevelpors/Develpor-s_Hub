@@ -76,6 +76,7 @@
   background-color: var(--hover-bg, rgba(0, 0, 0, 0.1));
 }
 
+
 .dark-mode-btn {
   display: flex;
   align-items: center;

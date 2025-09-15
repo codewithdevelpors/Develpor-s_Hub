@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import Placeholder from './Placeholder';
-import Banner from './Banner';
-import RatingPopup from './RatingPopup';
+import Placeholder from '../components/ui/Placeholder';
+import Banner from '../components/ui/Banner';
+import RatingPopup from '../components/ui/RatingPopup';
 import './Home.css';
+import { ITEMS_PER_PAGE } from '../constants/themes';
+import { generateMockItems } from '../utils/helpers';
 
 const Home = ({ onItemClick }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 15;
   const itemsPerRow = 2;
   const [ratings, setRatings] = useState({});
   const [ratingPopupItem, setRatingPopupItem] = useState(null);
 
   // Mock data - replace with actual data fetching
-  const mockItems = Array.from({ length: 50 }, (_, i) => ({
-    id: i + 1,
-    img: `https://via.placeholder.com/300x200?text=Item+${i + 1}`,
-    fileName: `File ${i + 1}.txt`,
-    fileType: 'Text File',
-    rating: ratings[i + 1] || (Math.floor(Math.random() * 5) + 1),
-    uploadingData: `Uploaded ${Math.floor(Math.random() * 30) + 1} days ago`,
-    shortDescription: `This is a short description for item ${i + 1}. It contains some useful information about the file.`
+  const mockItems = generateMockItems(50).map((item, index) => ({
+    ...item,
+    rating: ratings[item.id] || item.rating
   }));
 
   const handleRateItem = (itemId, rating) => {
@@ -47,9 +43,9 @@ const Home = ({ onItemClick }) => {
     setRatingPopupItem(null);
   };
 
-  const totalPages = Math.ceil(mockItems.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  const totalPages = Math.ceil(mockItems.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
   const currentItems = mockItems.slice(startIndex, endIndex);
 
   const handlePageChange = (page) => {

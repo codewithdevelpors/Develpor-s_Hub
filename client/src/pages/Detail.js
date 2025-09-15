@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Detail.css';
+import { renderStars } from '../utils/helpers';
 
 const Detail = ({ item, onPreviewClick, onDownloadClick }) => {
   const navigate = useNavigate();
@@ -9,17 +10,6 @@ const Detail = ({ item, onPreviewClick, onDownloadClick }) => {
     navigate('/');
   };
 
-  const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <span key={i} className={`star ${i <= rating ? 'filled' : ''}`}>
-          ★
-        </span>
-      );
-    }
-    return stars;
-  };
 
   return (
     <div className="detail-container">

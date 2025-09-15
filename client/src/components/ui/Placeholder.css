@@ -98,6 +98,36 @@
   transform: translateY(0);
 }
 
+.trending-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(45deg, #ff6b6b, #ffa500);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s infinite;
+}
+
+.trending-badge span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
 /* Dark mode support */
 body.dark-mode .placeholder-card {
   --card-bg: #2a2a2a;

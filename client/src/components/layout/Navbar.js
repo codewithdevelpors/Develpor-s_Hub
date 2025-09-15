@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Navbar.css';
+import { THEMES } from '../../constants/themes';
 
 const Navbar = ({ toggleDarkMode, isDarkMode }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -7,23 +8,6 @@ const Navbar = ({ toggleDarkMode, isDarkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState('default');
 
-  const themes = [
-    { name: 'Default', value: 'default' },
-    { name: 'Blue', value: 'blue' },
-    { name: 'Green', value: 'green' },
-    { name: 'Purple', value: 'purple' },
-    { name: 'Red', value: 'red' },
-    { name: 'Orange', value: 'orange' },
-    { name: 'Pink', value: 'pink' },
-    { name: 'Teal', value: 'teal' },
-    { name: 'Indigo', value: 'indigo' },
-    { name: 'Cyan', value: 'cyan' },
-    { name: 'Lime', value: 'lime' },
-    { name: 'Amber', value: 'amber' },
-    { name: 'Rose', value: 'rose' },
-    { name: 'Emerald', value: 'emerald' },
-    { name: 'Violet', value: 'violet' }
-  ];
 
   const handleThemeChange = (theme) => {
     setCurrentTheme(theme);
@@ -51,7 +35,7 @@ const Navbar = ({ toggleDarkMode, isDarkMode }) => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <h1>My App</h1>
+        <h1>Develpor's Hub</h1>
       </div>
       <div className="navbar-actions">
         <form className={`search-form ${isSearchOpen ? 'open' : ''}`} onSubmit={handleSearchSubmit}>
@@ -90,7 +74,7 @@ const Navbar = ({ toggleDarkMode, isDarkMode }) => {
         <div className="theme-dropdown">
           <h4>Select Theme</h4>
           <div className="theme-list">
-            {themes.map((theme) => (
+            {THEMES.map((theme) => (
               <button
                 key={theme.value}
                 className={`theme-option ${currentTheme === theme.value ? 'active' : ''}`}

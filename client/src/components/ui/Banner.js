@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Banner.css';
+import { renderStars } from '../../utils/helpers';
+import { BANNER_AUTO_SLIDE_INTERVAL } from '../../constants/themes';
 
 const Banner = ({ onItemClick }) => {
   const navigate = useNavigate();
@@ -52,7 +54,7 @@ const Banner = ({ onItemClick }) => {
       setCurrentIndex((prevIndex) =>
         prevIndex === banners.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); // Change slide every 3 seconds
+    }, BANNER_AUTO_SLIDE_INTERVAL);
 
     return () => clearInterval(interval);
   }, [banners.length]);
@@ -70,17 +72,6 @@ const Banner = ({ onItemClick }) => {
     navigate('/detail');
   };
 
-  const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <span key={i} className={`star ${i <= Math.floor(rating) ? 'filled' : ''}`}>
-          ★
-        </span>
-      );
-    }
-    return stars;
-  };
 
   return (
     <div className="banner-container">
