@@ -18,7 +18,6 @@ const Footer = () => {
           <div className="footer-links">
             <Link to="/">Home</Link>
             <Link to="/about">About Us</Link>
-            <Link to="/categories">Categories</Link>
             <a href="mailto:support@develporshub.com">Contact Support</a>
           </div>
         </div>

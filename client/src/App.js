@@ -5,7 +5,6 @@ import Home from './pages/Home/Home';
 import Detail from './pages/Detail/Detail';
 import Download from './pages/Download/Download';
 import About from './pages/About/About';
-import Categories from './pages/Categories/Categories';
 import Privacy from './pages/Privacy/Privacy';
 import Terms from './pages/Terms/Terms';
 import Preview from './components/Preview/Preview';
@@ -58,7 +57,6 @@ function AppContent() {
             />
           } />
           <Route path="/about" element={<About />} />
-          <Route path="/categories" element={<Categories />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/detail/:id" element={

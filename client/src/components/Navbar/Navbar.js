@@ -79,16 +79,6 @@ const Navbar = ({ onSearch }) => {
                 About Us
               </Link>
             </li>
-            <li className="nav-item">
-              <Link 
-                to="/categories" 
-                className={`nav-link ${isActiveLink('/categories')}`}
-                onClick={closeMenu}
-              >
-                <i className="icon-grid"></i>
-                Categories
-              </Link>
-            </li>
           </ul>
 
           {/* Search Bar */}

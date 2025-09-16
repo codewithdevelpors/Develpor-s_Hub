@@ -202,14 +202,9 @@ const About = () => {
                 <span className="stat-number">10,000+</span>
                 <span className="stat-label">Happy Customers</span>
               </div>
-              <div className="stat-box">
-                <span className="stat-number">15+</span>
-                <span className="stat-label">Categories</span>
-              </div>
             </div>
             <div className="cta-buttons">
               <a href="/" className="cta-button primary">Browse Templates</a>
-              <a href="/categories" className="cta-button secondary">View Categories</a>
             </div>
           </div>
         </section>
