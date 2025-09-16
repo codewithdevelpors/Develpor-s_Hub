@@ -1,0 +1,285 @@
+.privacy-container {
+  min-height: 100vh;
+  padding-top: 70px; /* Account for fixed navbar */
+  background: var(--page-bg, #ffffff);
+}
+
+.privacy-hero {
+  background: linear-gradient(135deg, #6610f2 0%, #007bff 100%);
+  color: white;
+  text-align: center;
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.privacy-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+}
+
+.privacy-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.privacy-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.last-updated {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  position: relative;
+  z-index: 1;
+  font-style: italic;
+}
+
+.privacy-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.privacy-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+.privacy-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.privacy-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-color, #333);
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color, #007bff);
+  display: inline-block;
+}
+
+.section-content h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-color, #333);
+  margin: 1.5rem 0 1rem 0;
+}
+
+.section-content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-color, #555);
+  margin: 0 0 1rem 0;
+}
+
+.section-content ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.section-content li {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-color, #555);
+  margin-bottom: 0.5rem;
+}
+
+.section-content li strong {
+  color: var(--text-color, #333);
+  font-weight: 600;
+}
+
+.contact-section {
+  background: var(--card-bg, #f8f9fa);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid var(--border-color, #e0e0e0);
+}
+
+.contact-info {
+  margin-top: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background: var(--page-bg, #ffffff);
+  border-radius: 6px;
+  border: 1px solid var(--border-color, #e0e0e0);
+}
+
+.contact-item strong {
+  color: var(--primary-color, #007bff);
+  margin-right: 0.5rem;
+  min-width: 120px;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .privacy-container {
+  --page-bg: #121212;
+  --card-bg: #1e1e1e;
+  --text-color: #ffffff;
+  --border-color: #333333;
+}
+
+body.dark-mode .privacy-section {
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .privacy-section h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .section-content h3 {
+  color: #ffffff;
+}
+
+body.dark-mode .section-content p {
+  color: #cccccc;
+}
+
+body.dark-mode .section-content li {
+  color: #cccccc;
+}
+
+body.dark-mode .section-content li strong {
+  color: #ffffff;
+}
+
+body.dark-mode .contact-section {
+  background: var(--card-bg, #1e1e1e);
+  border-color: #333333;
+}
+
+body.dark-mode .contact-item {
+  background: #2a2a2a;
+  border-color: #444444;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .privacy-hero {
+    padding: 2rem 1rem;
+  }
+
+  .privacy-title {
+    font-size: 2rem;
+  }
+
+  .privacy-subtitle {
+    font-size: 1rem;
+  }
+
+  .privacy-content {
+    padding: 2rem 1rem;
+  }
+
+  .privacy-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .section-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .contact-section {
+    padding: 1.5rem;
+  }
+
+  .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .contact-item strong {
+    margin-bottom: 0.25rem;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .privacy-hero {
+    padding: 1.5rem 1rem;
+  }
+
+  .privacy-title {
+    font-size: 1.8rem;
+  }
+
+  .privacy-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .privacy-section {
+    margin-bottom: 2rem;
+  }
+
+  .privacy-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .section-content ul {
+    padding-left: 1rem;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.privacy-section {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.privacy-section:nth-child(2) { animation-delay: 0.1s; }
+.privacy-section:nth-child(3) { animation-delay: 0.2s; }
+.privacy-section:nth-child(4) { animation-delay: 0.3s; }
+.privacy-section:nth-child(5) { animation-delay: 0.4s; }
+.privacy-section:nth-child(6) { animation-delay: 0.5s; }
+.privacy-section:nth-child(7) { animation-delay: 0.6s; }
+.privacy-section:nth-child(8) { animation-delay: 0.7s; }
+.privacy-section:nth-child(9) { animation-delay: 0.8s; }
+.privacy-section:nth-child(10) { animation-delay: 0.9s; }
+.privacy-section:nth-child(11) { animation-delay: 1.0s; }
+
+/* Scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+.privacy-section h2:focus,
+.section-content h3:focus {
+  outline: 2px solid var(--primary-color, #007bff);
+  outline-offset: 2px;
+}

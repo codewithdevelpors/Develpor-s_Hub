@@ -1,91 +1,123 @@
 import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useTheme } from '../../contexts/ThemeContext';
 import './Navbar.css';
-import { THEMES } from '../../constants/themes';
 
-const Navbar = ({ toggleDarkMode, isDarkMode }) => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+const Navbar = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState('default');
+  const { isDarkMode, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-
-  const handleThemeChange = (theme) => {
-    setCurrentTheme(theme);
-    setIsMenuOpen(false);
-    // Apply theme logic here
-    document.documentElement.setAttribute('data-theme', theme);
-  };
-
-  const handleSearchToggle = () => {
-    setIsSearchOpen(!isSearchOpen);
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      onSearch(searchQuery.trim());
+      // Navigate to home page with search results
+      if (location.pathname !== '/') {
+        navigate('/');
+      }
+    }
   };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    // Handle search logic here
-    console.log('Searching for:', searchQuery);
-    setIsSearchOpen(false);
-    setSearchQuery('');
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const isActiveLink = (path) => {
+    return location.pathname === path ? 'active' : '';
   };
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">
-        <h1>Develpor's Hub</h1>
-      </div>
-      <div className="navbar-actions">
-        <form className={`search-form ${isSearchOpen ? 'open' : ''}`} onSubmit={handleSearchSubmit}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={handleSearchChange}
-            className="search-input"
-          />
-          <button type="button" className="search-btn" onClick={handleSearchToggle}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 21L16.5 16.5M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-        </form>
-        <button className={`dark-mode-btn ${isDarkMode ? 'dark' : 'light'}`} onClick={toggleDarkMode}>
-          <div className="icon-container">
-            <svg className="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 3V5M12 19V21M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M3 12H5M19 12H21M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <svg className="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
+      <div className="navbar-container">
+        {/* Logo/Brand */}
+        <Link to="/" className="navbar-brand" onClick={closeMenu}>
+          <span className="brand-text">Develpor's Hub</span>
+        </Link>
+
+        {/* Mobile Menu Toggle */}
+        <button 
+          className={`navbar-toggle ${isMenuOpen ? 'active' : ''}`}
+          onClick={toggleMenu}
+          aria-label="Toggle navigation menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-        <button className={`menu-btn ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          <div className="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </button>
-      </div>
-      {isMenuOpen && (
-        <div className="theme-dropdown">
-          <h4>Select Theme</h4>
-          <div className="theme-list">
-            {THEMES.map((theme) => (
-              <button
-                key={theme.value}
-                className={`theme-option ${currentTheme === theme.value ? 'active' : ''}`}
-                onClick={() => handleThemeChange(theme.value)}
+
+        {/* Navigation Links */}
+        <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link 
+                to="/" 
+                className={`nav-link ${isActiveLink('/')}`}
+                onClick={closeMenu}
               >
-                {theme.name}
+                <i className="icon-home"></i>
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link 
+                to="/about" 
+                className={`nav-link ${isActiveLink('/about')}`}
+                onClick={closeMenu}
+              >
+                <i className="icon-info"></i>
+                About Us
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link 
+                to="/categories" 
+                className={`nav-link ${isActiveLink('/categories')}`}
+                onClick={closeMenu}
+              >
+                <i className="icon-grid"></i>
+                Categories
+              </Link>
+            </li>
+          </ul>
+
+          {/* Search Bar */}
+          <form className="navbar-search" onSubmit={handleSearchSubmit}>
+            <div className="search-input-group">
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Search templates..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+              <button type="submit" className="search-button" aria-label="Search">
+                <i className="icon-search"></i>
               </button>
-            ))}
-          </div>
+            </div>
+          </form>
+
+          {/* Dark Mode Toggle */}
+          <button 
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+            title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+          >
+            <i className={`icon-${isDarkMode ? 'sun' : 'moon'}`}></i>
+          </button>
         </div>
-      )}
+      </div>
     </nav>
   );
 };

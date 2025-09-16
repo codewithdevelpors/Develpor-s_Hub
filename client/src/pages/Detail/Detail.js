@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './Detail.css';
-import { renderStars } from '../utils/helpers';
-import { fetchDataById } from '../utils/api';
+import { renderStars } from '../../utils/helpers';
+import { fetchDataById } from '../../utils/api';
 
 const Detail = ({ onPreviewClick, onDownloadClick }) => {
   const navigate = useNavigate();

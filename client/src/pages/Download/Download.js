@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Download.css';
-import { renderStars } from '../utils/helpers';
+import { renderStars } from '../../utils/helpers';
 
 const Download = ({ item }) => {
   const navigate = useNavigate();
