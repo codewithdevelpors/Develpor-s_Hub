@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
 
-const PostSchema = mongoose.Schema({
+const PlaceholderSchema = mongoose.Schema({
     name: {
         type: String,
         required: [true, "Name is required"],
+    },
+    category: {
+        type: String,
+        required: [true, "Category is required"],
     },
     type: {
         type: String,
@@ -35,5 +39,5 @@ const PostSchema = mongoose.Schema({
     }
 }, { timestamps: true })
 
-const PostModal = mongoose.model('Post', PostSchema);
-export default PostModal;
+const PlaceholderModal = mongoose.model('Placeholder', PlaceholderSchema);
+export default PlaceholderModal;

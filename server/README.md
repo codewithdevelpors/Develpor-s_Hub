@@ -1,6 +1,6 @@
 # Develpor's Hub - Backend API Server
 
-A professional Node.js/Express API server for Develpor's Hub application.
+A professional Node.js/Express API server for Develpor's Hub application, providing RESTful APIs for managing placeholders with advanced filtering and pagination.
 
 ## Features
 
@@ -8,7 +8,8 @@ A professional Node.js/Express API server for Develpor's Hub application.
 - 🔒 Security middleware (Helmet, CORS, Rate Limiting)
 - 📊 Request logging with Morgan
 - 🗄️ MongoDB integration with Mongoose
-- 📝 File upload support with Multer
+- 📄 Advanced pagination support
+- 🔍 Flexible filtering by category and file type
 - 🔧 Environment-based configuration
 - 🏥 Health check endpoint
 - ⚡ Graceful shutdown handling
@@ -68,12 +69,101 @@ The server will start on the configured port (default: 8000).
 ### Root
 - `GET /` - API information
 
-### Posts API
-- `GET /api/v1/posts` - Get all posts
-- `POST /api/v1/posts` - Create a new post
-- `GET /api/v1/posts/:id` - Get post by ID
-- `PUT /api/v1/posts/:id` - Update post
-- `DELETE /api/v1/posts/:id` - Delete post
+### Placeholders API
+All endpoints support pagination with query parameters `page` (default: 1) and `limit` (default: 10).
+
+- `GET /api/v1/placeholders` - Get all placeholders with pagination
+  - Query parameters: `?page=1&limit=10`
+  - Response includes pagination metadata
+
+- `GET /api/v1/placeholders/:id` - Get placeholder by ID
+
+- `GET /api/v1/placeholders/category/:category` - Get placeholders by category with pagination
+  - Query parameters: `?page=1&limit=10`
+
+- `GET /api/v1/placeholders/filetype/:filetype` - Get placeholders by file type with pagination
+  - Query parameters: `?page=1&limit=10`
+
+### Page-Specific Endpoints
+
+These endpoints are optimized for specific page requirements:
+
+- `GET /api/v1/home` - Get data for home page (recent placeholders)
+  - Query parameters: `?limit=12` (default: 12)
+  - Returns: Basic placeholder info for homepage display
+
+- `GET /api/v1/detail/:id` - Get detailed data for detail page
+  - Returns: Complete placeholder information including timestamps
+
+- `GET /api/v1/preview/:id` - Get preview data for preview page
+  - Returns: Preview-focused fields (name, category, type, preview links)
+
+- `GET /api/v1/download/:id` - Get download data for download page
+  - Returns: Download-focused fields (name, download link, related images)
+
+### Placeholder Data Model
+
+Each placeholder contains the following fields:
+
+- `name` (String, required) - Display name of the placeholder
+- `category` (String, required) - Category classification
+- `type` (String, required) - File type (e.g., "image", "video", "document")
+- `description` (String, required) - Detailed description
+- `shortDescription` (String, required) - Brief description
+- `previewLink` (String, required) - Link to preview
+- `outputImgLink` (String, required) - Link to output image
+- `imgLink` (String, required) - Link to main image
+- `downloadLink` (String, required) - Download link
+- `createdAt` (Date) - Creation timestamp
+- `updatedAt` (Date) - Last update timestamp
+
+### Example API Responses
+
+#### Get All Placeholders
+```json
+{
+  "success": true,
+  "message": "Placeholders retrieved successfully",
+  "data": [
+    {
+      "name": "Sample Placeholder",
+      "category": "templates",
+      "type": "image",
+      "description": "A sample placeholder description",
+      "shortDescription": "Sample placeholder",
+      "previewLink": "https://example.com/preview.jpg",
+      "outputImgLink": "https://example.com/output.jpg",
+      "imgLink": "https://example.com/image.jpg",
+      "downloadLink": "https://example.com/download.zip"
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 5,
+    "totalItems": 50,
+    "itemsPerPage": 10
+  }
+}
+```
+
+#### Get Placeholder by ID
+```json
+{
+  "success": true,
+  "message": "Placeholder retrieved successfully",
+  "data": {
+    "name": "Sample Placeholder",
+    "category": "templates",
+    "type": "image",
+    "description": "A sample placeholder description",
+    "shortDescription": "Sample placeholder",
+    "previewLink": "https://example.com/preview.jpg",
+    "outputImgLink": "https://example.com/output.jpg",
+    "imgLink": "https://example.com/image.jpg",
+    "downloadLink": "https://example.com/download.zip"
+  }
+}
+```
 
 ## Project Structure
 

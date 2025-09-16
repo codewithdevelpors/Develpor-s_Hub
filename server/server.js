@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 const app = express();
-import PostRoute from './routes/post.route.js';
+import PlaceholderRoute from './routes/post.route.js';
 import connectWithMongoDB from './db/Connection1.js';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -52,7 +52,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Routes
-app.use('/api/v1', PostRoute);
+app.use('/api/v1', PlaceholderRoute);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
