@@ -1,19 +1,39 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const PostSchema = mongoose.Schema({
-    topic: {
+    name: {
         type: String,
-        required: [true, "heading is required"],
+        required: [true, "Name is required"],
     },
-    question: {
+    type: {
         type: String,
-        required: [true, "Question is required"],
+        required: [true, "Type is required"],
     },
-    answer: {
+    description: {
         type: String,
-        required: [true, "Answer is required"],
+        required: [true, "Description is required"],
+    },
+    shortDescription: {
+        type: String,
+        required: [true, "Short description is required"],
+    },
+    previewLink: {
+        type: String,
+        required: [true, "Preview link is required"],
+    },
+    outputImgLink: {
+        type: String,
+        required: [true, "Output image link is required"],
+    },
+    imgLink: {
+        type: String,
+        required: [true, "Image link is required"],
+    },
+    downloadLink: {
+        type: String,
+        required: [true, "Download link is required"],
     }
-})
+}, { timestamps: true })
 
-const PostModal = mongoose.model('QuestionPost', PostSchema);
+const PostModal = mongoose.model('Post', PostSchema);
 export default PostModal;

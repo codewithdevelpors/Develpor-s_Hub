@@ -1,85 +1,39 @@
 import PostModal from '../models/post.model.js'
 
-const CreatePost = async (req, res, next) => {
+const fetchData = async (req, res, next) => {
     try {
-        const { topic, question, answer } = req.body;
-        console.log(topic, question, answer);
-        const responseData = await PostModal.create({
-            topic,
-            question,
-            answer,
-        })
-        res.send({
-            success: true,
-            responseData,
-        })
-    } catch (error) {
-        console.error("Error :: createPost :: \n" + error)
-    }
-}
+        const { id } = req.params;
 
-const getPosts = async (req, res, next) => {
-    try {
-        const responseData = await PostModal.find();
-        res.send({
-            success: true,
-            responseData,
-        })
-    } catch (error) {
-        console.error("Error :: createPost :: \n" + error)
-    }
-}
+        if (!id) {
+            return res.status(400).json({
+                success: false,
+                message: 'ID is required'
+            });
+        }
 
-const getSinglePost = async (req, res, next) => {
-    try {
-        const { postID } = req.query;
-        console.log(postID)
-        const responseData = await PostModal.findById(postID);
-        res.send({
-            success: true,
-            responseData,
-        })
-    } catch (error) {
-        console.error("Error :: createPost :: \n" + error)
-    }
-}
+        const responseData = await PostModal.findById(id, 'id name type description shortDescription previewLink outputImgLink imgLink downloadLink');
 
-const deletePost = async (req, res, next) => {
-    try {
-        const { postID } = req.body;
-        if(!postID) throw Error("Pleas Provide post id");
-        const responseData = await PostModal.findByIdAndDelete(postID)
-        res.send({
-            success: true,
-            responseData,
-        })
-    } catch (error) {
-        console.error("Error :: createPost :: \n" + error)
-    }
-}
+        if (!responseData) {
+            return res.status(404).json({
+                success: false,
+                message: 'Data not found'
+            });
+        }
 
-const updatePost = async (req, res, next) => {
-    try {
-        const { postID, topic, question, answer } = req.body;
-        console.log(postID, topic, question, answer)
-        const responseData = await PostModal.findByIdAndUpdate(postID, {
-            topic,
-            question,
-            answer,
-        }, { new: true });
-        res.send({
+        res.status(200).json({
             success: true,
-            responseData,
-        })
+            message: 'Data retrieved successfully',
+            data: responseData,
+        });
     } catch (error) {
-        console.error("Error :: createPost :: \n" + error)
+        console.error("Error retrieving data:", error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
     }
-}
+};
 
 export {
-    CreatePost,
-    getPosts,
-    getSinglePost,
-    deletePost,
-    updatePost,
+    fetchData,
 }

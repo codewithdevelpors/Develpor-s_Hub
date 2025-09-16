@@ -2,35 +2,115 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 const app = express();
-import PostRoute from './routes/post.route.js'
-import connectWithMongoDB from './db/Connection1.js'
-import cors from 'cors'
+import PostRoute from './routes/post.route.js';
+import connectWithMongoDB from './db/Connection1.js';
+import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import morgan from 'morgan';
 
-app.use(cors({
-    origin: ["http://localhost:3000","https://full-stack-web-question-bank.netlify.app"]
-}));
+// Environment variables
+const PORT = process.env.PORT || 8000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
+// Connect to MongoDB
 connectWithMongoDB();
 
-// For parsing application/json
-app.use(express.json());
+// Security middleware
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 
-// For parsing application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+// Rate limiting
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: {
+        error: true,
+        message: 'Too many requests from this IP, please try again later.'
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+app.use('/api/', limiter);
 
+// CORS
+app.use(cors({
+    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ["http://localhost:3000"],
+    credentials: true
+}));
+
+// Logging
+if (NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+} else {
+    app.use(morgan('combined'));
+}
+
+// Body parsing middleware
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Routes
 app.use('/api/v1', PostRoute);
 
-app.get('/',(req,res)=>{
-    res.send({
-        activeStatus:true,
-        error:false,
-    })
-})
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        environment: NODE_ENV
+    });
+});
 
-app.listen(8000, () => {
-    console.log("Server is listening on port http://localhost:8000");
-    console.log("Welcome back!");
-})
+// Root endpoint
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message: 'Develpor\'s Hub API Server',
+        version: '1.0.0',
+        status: 'active',
+        environment: NODE_ENV
+    });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+    res.status(404).json({
+        error: true,
+        message: 'Route not found'
+    });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500).json({
+        error: true,
+        message: NODE_ENV === 'development' ? err.message : 'Internal server error'
+    });
+});
+
+// Start server
+const server = app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT} in ${NODE_ENV} mode`);
+    console.log(`📊 Health check: http://localhost:${PORT}/health`);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('SIGTERM received, shutting down gracefully');
+    server.close(() => {
+        console.log('Process terminated');
+    });
+});
+
+process.on('SIGINT', () => {
+    console.log('SIGINT received, shutting down gracefully');
+    server.close(() => {
+        console.log('Process terminated');
+    });
+});
 
 /*
 Imagine you're filling out a form on a website, like when you're signing up for
