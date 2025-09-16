@@ -28,7 +28,7 @@ function AppContent() {
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
-    navigate('/detail');
+    navigate(`/detail/${item._id}`);
   };
 
   const handlePreviewClick = (item) => {
@@ -49,16 +49,11 @@ function AppContent() {
       <Navbar toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       <Routes>
         <Route path="/" element={<Home onItemClick={handleItemClick} />} />
-        <Route path="/detail" element={
-          selectedItem ? (
-            <Detail
-              item={selectedItem}
-              onPreviewClick={handlePreviewClick}
-              onDownloadClick={handleDownloadClick}
-            />
-          ) : (
-            <div>Please select an item first</div>
-          )
+        <Route path="/detail/:id" element={
+          <Detail
+            onPreviewClick={handlePreviewClick}
+            onDownloadClick={handleDownloadClick}
+          />
         } />
         <Route path="/download" element={
           selectedItem ? (
