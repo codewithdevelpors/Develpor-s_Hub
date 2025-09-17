@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Placeholder.css';
 import { renderStars, isTrending } from '../../utils/helpers';
 import { TRENDING_RATING_THRESHOLD } from '../../constants/themes';
 
 const Placeholder = ({ item, onNextClick }) => {
   const isItemTrending = isTrending(item.rating, TRENDING_RATING_THRESHOLD);
+  const [imageError, setImageError] = useState(false);
+
+  // Debug logging
+  console.log('Placeholder item:', item.name, 'imgLink:', item.imgLink);
+
+  const handleImageError = () => {
+    console.log('Image failed to load for:', item.name, 'URL:', item.imgLink);
+    setImageError(true);
+  };
 
   return (
     <div className="placeholder-card">
@@ -14,15 +23,26 @@ const Placeholder = ({ item, onNextClick }) => {
         </div>
       )}
       <div className="placeholder-image">
-        <img src={item.img} alt={item.fileName} />
+        {imageError ? (
+          <div className="image-placeholder">
+            <span>📷</span>
+            <p>Image not available</p>
+          </div>
+        ) : (
+          <img
+            src={item.imgLink}
+            alt={item.name}
+            onError={handleImageError}
+          />
+        )}
       </div>
       <div className="placeholder-content">
-        <h3 className="file-name">{item.fileName}</h3>
-        <p className="file-type">{item.fileType}</p>
+        <h3 className="file-name">{item.name}</h3>
+        <p className="file-type">{item.type}</p>
         <div className="rating">
           {renderStars(item.rating)}
         </div>
-        <p className="uploading-data">{item.uploadingData}</p>
+        <p className="category">{item.category}</p>
         <p className="short-description">{item.shortDescription}</p>
         <button className="next-btn" onClick={() => onNextClick(item)}>
           Next
