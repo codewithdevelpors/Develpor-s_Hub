@@ -11,7 +11,7 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
  */
 export const fetchDataById = async (id) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/placeholders/${id}`);
+    const response = await fetch(`${API_BASE_URL}/develpor/placeholders/${id}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -38,7 +38,7 @@ export const fetchDataById = async (id) => {
  */
 export const apiRequest = async (url, options = {}) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/v1${url}`, {
+    const response = await fetch(`${API_BASE_URL}/develpor${url}`, {
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
@@ -70,7 +70,7 @@ export const apiRequest = async (url, options = {}) => {
  */
 export const fetchHomePageData = async (limit = 12) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/home?limit=${limit}`);
+    const response = await fetch(`${API_BASE_URL}/develpor/home?limit=${limit}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -97,7 +97,7 @@ export const fetchHomePageData = async (limit = 12) => {
  */
 export const fetchAllPlaceholders = async (page = 1, limit = 10) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/placeholders?page=${page}&limit=${limit}`);
+    const response = await fetch(`${API_BASE_URL}/develpor/placeholders?page=${page}&limit=${limit}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -125,7 +125,7 @@ export const fetchAllPlaceholders = async (page = 1, limit = 10) => {
  */
 export const fetchPlaceholdersByCategory = async (category, page = 1, limit = 10) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/placeholders/category/${category}?page=${page}&limit=${limit}`);
+    const response = await fetch(`${API_BASE_URL}/develpor/placeholders/category/${category}?page=${page}&limit=${limit}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

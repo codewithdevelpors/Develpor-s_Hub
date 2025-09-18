@@ -3,53 +3,59 @@ import { useNavigate } from 'react-router-dom';
 import './Banner.css';
 import { renderStars } from '../../utils/helpers';
 import { BANNER_AUTO_SLIDE_INTERVAL } from '../../constants/themes';
+import { fetchHomePageData } from '../../utils/api';
 
 const Banner = ({ onItemClick }) => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [banners, setBanners] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Mock banner data - replace with actual data
-  const banners = [
-    {
-      id: 1,
-      img: 'https://via.placeholder.com/400x250?text=Featured+Item+1',
-      fileName: 'Featured App 1',
-      fileType: 'Application',
-      rating: 4.8,
-      uploadingData: 'Featured Today',
-      shortDescription: 'This is our featured application of the day with amazing features.'
-    },
-    {
-      id: 2,
-      img: 'https://via.placeholder.com/400x250?text=Featured+Item+2',
-      fileName: 'Premium Tool 2',
-      fileType: 'Tool',
-      rating: 4.9,
-      uploadingData: 'Trending Now',
-      shortDescription: 'Experience the power of our premium tool with advanced capabilities.'
-    },
-    {
-      id: 3,
-      img: 'https://via.placeholder.com/400x250?text=Featured+Item+3',
-      fileName: 'Creative Suite 3',
-      fileType: 'Suite',
-      rating: 4.7,
-      uploadingData: 'Most Popular',
-      shortDescription: 'Unleash your creativity with our comprehensive suite of tools.'
-    },
-    {
-      id: 4,
-      img: 'https://via.placeholder.com/400x250?text=Featured+Item+4',
-      fileName: 'Productivity App 4',
-      fileType: 'Productivity',
-      rating: 4.6,
-      uploadingData: 'New Release',
-      shortDescription: 'Boost your productivity with our latest innovative application.'
-    }
-  ];
+  // Fetch banner data from API
+  useEffect(() => {
+    const fetchBannerData = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchHomePageData(50); // Get all items for banner
+        const bannerData = data.map((item, index) => ({
+          id: item._id,
+          img: item.imgLink,
+          fileName: item.name,
+          fileType: item.type,
+          rating: item.rating || 4.5,
+          uploadingData: index === 0 ? 'Featured Today' :
+                        index === 1 ? 'Trending Now' :
+                        index === 2 ? 'Most Popular' :
+                        index === 3 ? 'New Release' :
+                        index === 4 ? 'Top Rated' :
+                        index === 5 ? 'Hot Pick' :
+                        index === 6 ? 'Editor\'s Choice' :
+                        index === 7 ? 'Community Favorite' :
+                        index === 8 ? 'Rising Star' :
+                        index === 9 ? 'Must Try' :
+                        index % 3 === 0 ? 'Popular Choice' :
+                        index % 3 === 1 ? 'Highly Rated' :
+                        'Recommended',
+          shortDescription: item.shortDescription,
+          _id: item._id
+        }));
+        setBanners(bannerData);
+      } catch (error) {
+        console.error('Error fetching banner data:', error);
+        // Fallback to empty array
+        setBanners([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBannerData();
+  }, []);
 
   // Auto-slide functionality
   useEffect(() => {
+    if (banners.length === 0) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
         prevIndex === banners.length - 1 ? 0 : prevIndex + 1
@@ -68,10 +74,35 @@ const Banner = ({ onItemClick }) => {
   };
 
   const handleBannerClick = (banner) => {
-    onItemClick(banner);
+    // Convert banner data to match the expected item format
+    const itemData = {
+      id: banner.id,
+      _id: banner._id,
+      name: banner.fileName,
+      type: banner.fileType,
+      category: 'python', // Default category
+      rating: banner.rating,
+      shortDescription: banner.shortDescription,
+      imgLink: banner.img,
+      uploadingData: banner.uploadingData
+    };
+    onItemClick(itemData);
     navigate('/detail');
   };
 
+  if (loading) {
+    return (
+      <div className="banner-container">
+        <div className="banner-loading">
+          <div className="loading-spinner">Loading featured items...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (banners.length === 0) {
+    return null; // Don't show banner if no data
+  }
 
   return (
     <div className="banner-container">
@@ -86,6 +117,7 @@ const Banner = ({ onItemClick }) => {
               key={banner.id}
               className={`banner-slide ${index === currentIndex ? 'active' : ''}`}
               onClick={() => handleBannerClick(banner)}
+              style={{ cursor: 'pointer' }}
             >
               <div className="banner-image">
                 <img src={banner.img} alt={banner.fileName} />
@@ -110,7 +142,7 @@ const Banner = ({ onItemClick }) => {
       </div>
 
       <div className="banner-indicators">
-        {banners.map((_, index) => (
+        {banners.slice(0, 8).map((_, index) => ( // Show max 8 indicators for better UX
           <button
             key={index}
             className={`indicator ${index === currentIndex ? 'active' : ''}`}

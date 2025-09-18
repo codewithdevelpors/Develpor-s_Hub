@@ -7,11 +7,7 @@ const Placeholder = ({ item, onNextClick }) => {
   const isItemTrending = isTrending(item.rating, TRENDING_RATING_THRESHOLD);
   const [imageError, setImageError] = useState(false);
 
-  // Debug logging
-  console.log('Placeholder item:', item.name, 'imgLink:', item.imgLink);
-
   const handleImageError = () => {
-    console.log('Image failed to load for:', item.name, 'URL:', item.imgLink);
     setImageError(true);
   };
 

@@ -72,33 +72,33 @@ The server will start on the configured port (default: 8000).
 ### Placeholders API
 All endpoints support pagination with query parameters `page` (default: 1) and `limit` (default: 10).
 
-- `GET /api/v1/placeholders` - Get all placeholders with pagination
+- `GET /develpor/placeholders` - Get all placeholders with pagination
   - Query parameters: `?page=1&limit=10`
   - Response includes pagination metadata
 
-- `GET /api/v1/placeholders/:id` - Get placeholder by ID
+- `GET /develpor/placeholders/:id` - Get placeholder by ID
 
-- `GET /api/v1/placeholders/category/:category` - Get placeholders by category with pagination
+- `GET /develpor/placeholders/category/:category` - Get placeholders by category with pagination
   - Query parameters: `?page=1&limit=10`
 
-- `GET /api/v1/placeholders/filetype/:filetype` - Get placeholders by file type with pagination
+- `GET /develpor/placeholders/filetype/:filetype` - Get placeholders by file type with pagination
   - Query parameters: `?page=1&limit=10`
 
 ### Page-Specific Endpoints
 
 These endpoints are optimized for specific page requirements:
 
-- `GET /api/v1/home` - Get data for home page (recent placeholders)
+- `GET /develpor/home` - Get data for home page (recent placeholders)
   - Query parameters: `?limit=12` (default: 12)
   - Returns: Basic placeholder info for homepage display
 
-- `GET /api/v1/detail/:id` - Get detailed data for detail page
+- `GET /develpor/detail/:id` - Get detailed data for detail page
   - Returns: Complete placeholder information including timestamps
 
-- `GET /api/v1/preview/:id` - Get preview data for preview page
+- `GET /develpor/preview/:id` - Get preview data for preview page
   - Returns: Preview-focused fields (name, category, type, preview links)
 
-- `GET /api/v1/download/:id` - Get download data for download page
+- `GET /develpor/download/:id` - Get download data for download page
   - Returns: Download-focused fields (name, download link, related images)
 
 ### Placeholder Data Model

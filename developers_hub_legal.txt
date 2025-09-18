@@ -1,0 +1,60 @@
+========================
+ABOUT US
+========================
+Welcome to Developer’s Hub
+
+Developer’s Hub is a collection of amazing programs and code examples created and curated by Code with Develpors.  
+Our goal is to inspire and help developers by sharing creative and educational projects in different programming languages.
+
+At Developer’s Hub, you can:
+- Browse and view source code files in various languages.
+- Download the code to learn, experiment, and build your own projects.
+
+We believe in open learning and sharing knowledge freely with the community.
+
+
+========================
+PRIVACY POLICY
+========================
+Privacy Policy of Developer’s Hub
+Effective Date: [Insert Date]
+
+Developer’s Hub respects your privacy. This website:
+
+- Does not collect any personal information.
+- Does not require you to create an account or log in.
+- Does not use forms to collect user data.
+- Does not host third-party ads or tracking scripts.
+
+We may collect basic, anonymous technical data such as browser type and general traffic statistics for improving site performance. This data cannot be used to identify any individual.
+
+If you have any questions about this Privacy Policy, you may contact us at:
+Email: codewithdevelpors@gmail.com
+
+
+========================
+TERMS OF SERVICE
+========================
+Terms of Service for Developer’s Hub
+Effective Date: [Insert Date]
+
+By using Developer’s Hub, you agree to the following terms:
+
+1. Use of Content
+   - All code and content on this site is provided for educational and personal use.
+   - You may view, copy, and download files for your own projects.
+
+2. No User Submissions
+   - Users cannot upload, post, or edit content on this site.
+   - Only the Developer’s Hub team may add or update content.
+
+3. No Warranties
+   - All content is provided “as is” without any warranties or guarantees.
+   - We are not responsible for any errors, bugs, or issues caused by using the code.
+
+4. Intellectual Property
+   - The original code and content are owned by Code with Develpors unless stated otherwise.
+   - You must keep copyright notices intact when sharing or reusing the code.
+
+5. Changes to Terms
+   - We may update these terms from time to time. Changes will be posted on this page.

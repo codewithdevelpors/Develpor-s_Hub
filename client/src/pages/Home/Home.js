@@ -25,13 +25,11 @@ const Home = ({ onItemClick, searchQuery, onClearSearch }) => {
         // For home page, fetch initial data
         if (!searchQuery) {
           const homeData = await fetchHomePageData(50); // Fetch more items for pagination
-          console.log('Fetched home data:', homeData);
           const itemsWithRatings = homeData.map((item, index) => ({
             ...item,
             id: item._id, // Map _id to id for compatibility
             rating: ratings[item._id] || item.rating || 0
           }));
-          console.log('Items with ratings:', itemsWithRatings);
           setItems(itemsWithRatings);
         } else {
           // For search, fetch all data and filter client-side

@@ -13,6 +13,18 @@ const jsonFilePath = path.join(__dirname, '../program_data_mongo.json');
 const rawData = fs.readFileSync(jsonFilePath, 'utf8');
 const jsonData = JSON.parse(rawData);
 
+// Use the specific Google Drive image provided by user
+// Make sure this image is publicly shared in Google Drive
+const googleDriveImageUrl = 'https://drive.google.com/uc?id=17i5j67eaiPkpOOAwcX-xwOav2VWJ97b1';
+
+// Google Drive image IDs - replace with actual FILE_IDs from your shared images
+// Example: '1ABC123def456ghi789' (the ID from sharing link)
+// const driveImageIds = [
+//   'YOUR_FILE_ID_1',
+//   'YOUR_FILE_ID_2',
+//   // ... etc
+// ];
+
 // Transform the JSON data to match the database schema
 const yourData = jsonData.map((item, index) => ({
   name: item['File Name '] || '',
@@ -22,7 +34,7 @@ const yourData = jsonData.map((item, index) => ({
   shortDescription: item['short description '] || '',
   previewLink: item['preview link'] || '',
   outputImgLink: item['Img link '] || '', // Use img link as output img
-  imgLink: `https://dummyimage.com/400x300/${Math.floor(Math.random()*16777215).toString(16)}/ffffff&text=Image+${index + 1}`, // Use publicly accessible placeholder images
+  imgLink: googleDriveImageUrl, // Use the specific Google Drive image for all placeholders
   downloadLink: item['download link'] || ''
 }));
 

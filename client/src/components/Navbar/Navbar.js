@@ -6,6 +6,7 @@ import './Navbar.css';
 const Navbar = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { isDarkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,6 +43,7 @@ const Navbar = ({ onSearch }) => {
       <div className="navbar-container">
         {/* Logo/Brand */}
         <Link to="/" className="navbar-brand" onClick={closeMenu}>
+          <img src="/favicon.ico" alt="Develpor's Hub" className="favicon" />
           <span className="brand-text">Develpor's Hub</span>
         </Link>
 
@@ -70,14 +72,32 @@ const Navbar = ({ onSearch }) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link 
-                to="/about" 
+              <Link
+                to="/about"
                 className={`nav-link ${isActiveLink('/about')}`}
                 onClick={closeMenu}
               >
                 <i className="icon-info"></i>
                 About Us
               </Link>
+            </li>
+            <li className="nav-item dropdown">
+              <button className="nav-link dropdown-toggle" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                <i className="icon-grid"></i>
+                Categories
+              </button>
+              <ul className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}>
+                <li>
+                  <Link to="/?category=python" onClick={() => { closeMenu(); setIsDropdownOpen(false); }}>
+                    Python
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/?category=html&css" onClick={() => { closeMenu(); setIsDropdownOpen(false); }}>
+                    HTML & CSS
+                  </Link>
+                </li>
+              </ul>
             </li>
           </ul>
 
